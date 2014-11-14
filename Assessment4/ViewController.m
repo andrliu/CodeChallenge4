@@ -20,6 +20,7 @@
 @property UIAlertView *addAlert;
 @property UIAlertView *colorAlert;
 @property NSMutableArray *arrayOfDogOwnerList;
+@property NSManagedObjectContext *managedObjectContext;
 
 @end
 
@@ -56,11 +57,10 @@
             }
         }];
     }
-
-
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSData *userDefaultColor = [userDefaults objectForKey:@"defaultColor"];
-    self.navigationController.navigationBar.tintColor = [NSKeyedUnarchiver unarchiveObjectWithData:userDefaultColor];
+    UIColor *defaultColor = [NSKeyedUnarchiver unarchiveObjectWithData:userDefaultColor];
+    self.navigationController.navigationBar.tintColor = defaultColor;
 }
 
 - (void)viewDidAppear:(BOOL)animated

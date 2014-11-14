@@ -17,9 +17,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-    ViewController *controller = (ViewController *)navigationController.topViewController;
-    controller.managedObjectContext = self.managedObjectContext;
+//    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+//    ViewController *controller = (ViewController *)navigationController.topViewController;
+//    controller.managedObjectContext = self.managedObjectContext;
 
     return YES;
 }

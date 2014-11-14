@@ -28,8 +28,10 @@
     [super viewDidLoad];
     self.title = @"Add Dog";
 
-    AppDelegate *delegate = [[UIApplication sharedApplication]delegate];
-    self.managedObjectContext = delegate.managedObjectContext;
+
+
+    AppDelegate *appDelegate = [[UIApplication sharedApplication]delegate];
+    self.managedObjectContext = appDelegate.managedObjectContext;
 
     self.nameTextField.text = self.dog.name;
     self.breedTextField.text = self.dog.breed;
