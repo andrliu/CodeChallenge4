@@ -42,10 +42,12 @@
         {
             if (!connectionError)
             {
-                self.arrayOfDogOwnerList = arrayOfDogOwnerList;
+                self.arrayOfDogOwnerList = arrayOfDogOwnerList; //load arrayOfList from json
 
-                [coreDataManager storeOwnersListByArray:self.arrayOfDogOwnerList];
-                self.arrayOfDogOwnerList = [coreDataManager retrieveListFrom:NSStringFromClass([Person class])];
+                [coreDataManager storeOwnersListByArray:self.arrayOfDogOwnerList]; //store arrayOfList to core data
+
+                self.arrayOfDogOwnerList = [coreDataManager retrieveListFrom:NSStringFromClass([Person class])]; //replace arrayOfList from core data
+
                 [self.myTableView reloadData];
             }
             else
@@ -54,6 +56,17 @@
             }
         }];
     }
+
+
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSData *userDefaultColor = [userDefaults objectForKey:@"defaultColor"];
+    self.navigationController.navigationBar.tintColor = [NSKeyedUnarchiver unarchiveObjectWithData:userDefaultColor];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
     [self.myTableView reloadData];
 }
 
@@ -88,22 +101,30 @@
 
     if (buttonIndex == 0)
     {
-        self.navigationController.navigationBar.tintColor = [UIColor purpleColor];
+        [self standardUserDefaultsWith:[UIColor redColor]];
     }
     else if (buttonIndex == 1)
     {
-        self.navigationController.navigationBar.tintColor = [UIColor blueColor];
+        [self standardUserDefaultsWith:[UIColor brownColor]];
     }
     else if (buttonIndex == 2)
     {
-        self.navigationController.navigationBar.tintColor = [UIColor orangeColor];
+        [self standardUserDefaultsWith:[UIColor orangeColor]];
     }
     else if (buttonIndex == 3)
     {
-        self.navigationController.navigationBar.tintColor = [UIColor greenColor];
+        [self standardUserDefaultsWith:[UIColor greenColor]];
     }
 
 }
+
+- (void)standardUserDefaultsWith:(UIColor *)color
+{
+    self.navigationController.navigationBar.tintColor = color;
+    NSData *userDefaultColor = [NSKeyedArchiver archivedDataWithRootObject:color];
+    [[NSUserDefaults standardUserDefaults] setObject:userDefaultColor forKey:@"defaultColor"];
+}
+
 
 - (void)Error:(NSError *)error
 {
@@ -124,7 +145,7 @@
                                                     message:nil
                                                    delegate:self
                                           cancelButtonTitle:nil
-                                          otherButtonTitles:@"Purple", @"Blue", @"Orange", @"Green", nil];
+                                          otherButtonTitles:@"Red", @"Brown", @"Orange", @"Green", nil];
     self.colorAlert.tag = 1;
     [self.colorAlert show];
 }
